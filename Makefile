@@ -14,7 +14,7 @@ CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 DEFINES       = -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -mmacosx-version-min=10.7 -Wall -W -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -O2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -mmacosx-version-min=10.7 -Wall -W -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -O2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -mmacosx-version-min=10.7 -std=c++1y -stdlib=libc++ -Wall -W -fPIC $(DEFINES)
 INCPATH       = -I. -I. -I../../local/Qt5/5.5/clang_64/lib/QtSvg.framework/Headers -I../../local/Qt5/5.5/clang_64/lib/QtWidgets.framework/Headers -I../../local/Qt5/5.5/clang_64/lib/QtGui.framework/Headers -I../../local/Qt5/5.5/clang_64/lib/QtXml.framework/Headers -I../../local/Qt5/5.5/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../local/Qt5/5.5/clang_64/mkspecs/macx-clang -F/Users/feng/local/Qt5/5.5/clang_64/lib
 QMAKE         = /Users/feng/local/Qt5/5.5/clang_64/bin/qmake
 DEL_FILE      = rm -f
@@ -35,7 +35,7 @@ COMPRESS      = gzip -9f
 DISTNAME      = qtmindmap-qtmindmap1.0.0
 DISTDIR = /Users/feng/code/qtmindmap-qtmindmap/.tmp/qtmindmap-qtmindmap1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-LFLAGS        = -headerpad_max_install_names -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -mmacosx-version-min=10.7 -Wl,-rpath,/Users/feng/local/Qt5/5.5/clang_64/lib
+LFLAGS        = -headerpad_max_install_names -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -mmacosx-version-min=10.7 -stdlib=libc++ -Wl,-rpath,/Users/feng/local/Qt5/5.5/clang_64/lib
 LIBS          = $(SUBLIBS) -F/Users/feng/local/Qt5/5.5/clang_64/lib -framework QtSvg -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtXml -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
@@ -201,6 +201,8 @@ DIST          = ../../local/Qt5/5.5/clang_64/mkspecs/features/spec_pre.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/mac/sdk.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/mac/default_post.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/mac/objective_c.prf \
+		../../local/Qt5/5.5/clang_64/mkspecs/features/c++11.prf \
+		../../local/Qt5/5.5/clang_64/mkspecs/features/c++14.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/warn_on.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/qt.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/resources.prf \
@@ -235,6 +237,8 @@ QMAKE_COMP_QMAKE_OBJECTIVE_CFLAGS = -pipe \
 		-isysroot \
 		/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk \
 		-mmacosx-version-min=10.7 \
+		-std=c++1y \
+		-stdlib=libc++ \
 		-Wall \
 		-W
 
@@ -396,6 +400,8 @@ Makefile: qtmindmap-qtmindmap.pro ../../local/Qt5/5.5/clang_64/mkspecs/macx-clan
 		../../local/Qt5/5.5/clang_64/mkspecs/features/mac/sdk.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/mac/default_post.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/mac/objective_c.prf \
+		../../local/Qt5/5.5/clang_64/mkspecs/features/c++11.prf \
+		../../local/Qt5/5.5/clang_64/mkspecs/features/c++14.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/warn_on.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/qt.prf \
 		../../local/Qt5/5.5/clang_64/mkspecs/features/resources.prf \
@@ -546,6 +552,8 @@ Makefile: qtmindmap-qtmindmap.pro ../../local/Qt5/5.5/clang_64/mkspecs/macx-clan
 ../../local/Qt5/5.5/clang_64/mkspecs/features/mac/sdk.prf:
 ../../local/Qt5/5.5/clang_64/mkspecs/features/mac/default_post.prf:
 ../../local/Qt5/5.5/clang_64/mkspecs/features/mac/objective_c.prf:
+../../local/Qt5/5.5/clang_64/mkspecs/features/c++11.prf:
+../../local/Qt5/5.5/clang_64/mkspecs/features/c++14.prf:
 ../../local/Qt5/5.5/clang_64/mkspecs/features/warn_on.prf:
 ../../local/Qt5/5.5/clang_64/mkspecs/features/qt.prf:
 ../../local/Qt5/5.5/clang_64/mkspecs/features/resources.prf:

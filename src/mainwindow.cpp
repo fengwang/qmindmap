@@ -5,22 +5,18 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-MainWindow::MainWindow( QWidget* parent ) :
-    QMainWindow( parent ),
-    m_ui( new Ui::MainWindow ),
-    m_contentChanged( false )
+MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent ), m_ui( new Ui::MainWindow ), m_contentChanged( false )
 {
     // setup ui
     m_ui->setupUi( this );
-    connect( m_ui->actionNew, SIGNAL( activated() ), this, SLOT( newFile() ) );
-    connect( m_ui->actionOpen, SIGNAL( activated() ), this, SLOT( openFile() ) );
-    connect( m_ui->actionSave, SIGNAL( activated() ), this, SLOT( saveFile() ) );
-    connect( m_ui->actionSaveAs, SIGNAL( activated() ), this, SLOT( saveFileAs() ) );
-    connect( m_ui->actionClose, SIGNAL( activated() ), this, SLOT( closeFile() ) );
-    connect( m_ui->actionExport, SIGNAL( activated() ), this, SLOT( exportScene() ) );
-    connect( m_ui->actionQuit, SIGNAL( activated() ), this, SLOT( quit() ) );
-    connect( m_ui->actionAbout_QtMindMap, SIGNAL( activated() ),
-             this, SLOT( about() ) );
+    connect( m_ui->actionNew, SIGNAL( triggered() ), this, SLOT( newFile() ) );
+    connect( m_ui->actionOpen, SIGNAL( triggered() ), this, SLOT( openFile() ) );
+    connect( m_ui->actionSave, SIGNAL( triggered() ), this, SLOT( saveFile() ) );
+    connect( m_ui->actionSaveAs, SIGNAL( triggered() ), this, SLOT( saveFileAs() ) );
+    connect( m_ui->actionClose, SIGNAL( triggered() ), this, SLOT( closeFile() ) );
+    connect( m_ui->actionExport, SIGNAL( triggered() ), this, SLOT( exportScene() ) );
+    connect( m_ui->actionQuit, SIGNAL( triggered() ), this, SLOT( quit() ) );
+    connect( m_ui->actionAbout_QtMindMap, SIGNAL( triggered() ), this, SLOT( about() ) );
     // graphwidget is hided by def, new/open file will show it
     m_graphicsView = new GraphWidget( this );
     setCentralWidget( m_graphicsView );
@@ -87,15 +83,11 @@ void MainWindow::openFile( const QString& fileName )
 
     if ( fileName.isEmpty() )
     {
-        QFileDialog dialog( this,
-                            tr( "Open MindMap" ),
-                            QDir::homePath(),
-                            QString( "QtMindMap (*.qmm)" ) );
+        QFileDialog dialog( this, tr( "Open MindMap" ), QDir::homePath(), QString( "QtMindMap (*.qmm)" ) );
         dialog.setAcceptMode( QFileDialog::AcceptOpen );
         dialog.setDefaultSuffix( "qmm" );
 
-        if ( !dialog.exec() )
-            return;
+        if ( !dialog.exec() ) return;
 
         m_fileName = dialog.selectedFiles().first();
     }
@@ -296,55 +288,55 @@ void MainWindow::setUpMainToolbar()
     // why can't I do this with qtcreator? (adding actions to toolbar)
     /// @bug or a feature? no underline here
     m_addNode = new QAction( tr( "Add node (ins)" ), this );
-    connect( m_addNode, SIGNAL( activated() ), m_graphicsView,
+    connect( m_addNode, SIGNAL( triggered() ), m_graphicsView,
              SLOT( insertNode() ) );
     m_delNode = new QAction( tr( "Del node (del)" ), this );
-    connect( m_delNode, SIGNAL( activated() ), m_graphicsView,
+    connect( m_delNode, SIGNAL( triggered() ), m_graphicsView,
              SLOT( removeNode() ) );
     m_editNode = new QAction( tr( "Edit node (F2, dubclick)" ), this );
-    connect( m_editNode, SIGNAL( activated() ), m_graphicsView,
+    connect( m_editNode, SIGNAL( triggered() ), m_graphicsView,
              SLOT( editNode() ) );
     m_scaleUpNode = new QAction( tr( "ScaleUp Node (Ctrl +)" ), this );
-    connect( m_scaleUpNode, SIGNAL( activated() ), m_graphicsView,
+    connect( m_scaleUpNode, SIGNAL( triggered() ), m_graphicsView,
              SLOT( scaleUp() ) );
     m_scaleDownNode = new QAction( tr( "ScaleDown Node (Ctrl -)" ), this );
-    connect( m_scaleDownNode, SIGNAL( activated() ), m_graphicsView,
+    connect( m_scaleDownNode, SIGNAL( triggered() ), m_graphicsView,
              SLOT( scaleDown() ) );
     m_nodeColor = new QAction( tr( "Node color (c)" ), this );
-    connect( m_nodeColor, SIGNAL( activated() ), m_graphicsView,
+    connect( m_nodeColor, SIGNAL( triggered() ), m_graphicsView,
              SLOT( nodeColor() ) );
     m_nodeTextColor = new QAction( tr( "Node textcolor (t)" ), this );
-    connect( m_nodeTextColor, SIGNAL( activated() ), m_graphicsView,
+    connect( m_nodeTextColor, SIGNAL( triggered() ), m_graphicsView,
              SLOT( nodeTextColor() ) );
     m_addEdge = new QAction( tr( "Add edge (a)" ), this );
-    connect( m_addEdge, SIGNAL( activated() ), m_graphicsView,
+    connect( m_addEdge, SIGNAL( triggered() ), m_graphicsView,
              SLOT( addEdge() ) );
     m_delEdge = new QAction( tr( "Del edge (d)" ), this );
-    connect( m_delEdge, SIGNAL( activated() ), m_graphicsView,
+    connect( m_delEdge, SIGNAL( triggered() ), m_graphicsView,
              SLOT( removeEdge() ) );
     m_moveNode = new QAction( tr( "Move node\n(Ctrl cursor, drag)" ), this );
     m_moveNode->setDisabled( true );
     m_subtree = new QAction( tr( "Change on wholesubtree\n(Ctrl shift)" ), this );
     m_subtree->setDisabled( true );
     m_zoomIn = new QAction( tr( "Zoom in (+, scrollup)" ), this );
-    connect( m_zoomIn, SIGNAL( activated() ), m_graphicsView,
+    connect( m_zoomIn, SIGNAL( triggered() ), m_graphicsView,
              SLOT( zoomIn() ) );
     m_zoomOut = new QAction( tr( "Zoom out (-, scrolldown)" ), this );
-    connect( m_zoomOut, SIGNAL( activated() ), m_graphicsView,
+    connect( m_zoomOut, SIGNAL( triggered() ), m_graphicsView,
              SLOT( zoomOut() ) );
     m_esc = new QAction( tr( "Leave editing,\nedge eadd/remove (esc)" ), this );
-    connect( m_esc, SIGNAL( activated() ), m_graphicsView,
+    connect( m_esc, SIGNAL( triggered() ), m_graphicsView,
              SLOT( nodeLostFocus() ) );
     m_hintMode = new QAction( tr( "Hint mode (f)" ), this );
-    connect( m_hintMode, SIGNAL( activated() ), m_graphicsView,
+    connect( m_hintMode, SIGNAL( triggered() ), m_graphicsView,
              SLOT( hintMode() ) );
     m_showMainToolbar = new QAction( tr( "Show main toolbar\n(Ctrl m)" ), this );
     m_showMainToolbar->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_M ) );
-    connect( m_showMainToolbar, SIGNAL( activated() ), this,
+    connect( m_showMainToolbar, SIGNAL( triggered() ), this,
              SLOT( showMainToolbar() ) );
     m_showStatusIconToolbar = new QAction( tr( "Insert status icons\n(Ctrl i)" ),
                                            this );
-    connect( m_showStatusIconToolbar, SIGNAL( activated() ), this,
+    connect( m_showStatusIconToolbar, SIGNAL( triggered() ), this,
              SLOT( showStatusIconToolbar() ) );
     m_ui->mainToolBar->addAction( m_addNode );
     m_ui->mainToolBar->addAction( m_delNode );
@@ -374,42 +366,46 @@ void MainWindow::setUpStatusIconToolbar()
     m_insertIcon->setDisabled( true );
     m_doIt = new QAction( QIcon( ":/applications-system.svg" ), tr( "&Do" ), this );
     m_doIt->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_D ) );
-    connect( m_doIt, SIGNAL( activated() ), m_signalMapper, SLOT ( map() ) );
+    connect( m_doIt, SIGNAL( triggered() ), m_signalMapper, SLOT ( map() ) );
+
     m_signalMapper->setMapping( m_doIt, ":/applications-system.svg" );
     m_trash = new QAction( QIcon( ":/user-trash-full.svg" ), tr( "&Trash" ), this );
     m_trash->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_T ) );
-    connect( m_trash, SIGNAL( activated() ), m_signalMapper, SLOT ( map() ) );
+    connect( m_trash, SIGNAL( triggered() ), m_signalMapper, SLOT ( map() ) );
+
     m_signalMapper->setMapping( m_trash, ":/user-trash-full.svg" );
     m_info = new QAction( QIcon( ":/mail-attachment.svg" ), tr( "&Refer" ), this );
     m_info->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_R ) );
-    connect( m_info, SIGNAL( activated() ), m_signalMapper, SLOT ( map() ) );
+    connect( m_info, SIGNAL( triggered() ), m_signalMapper, SLOT ( map() ) );
+
     m_signalMapper->setMapping( m_info, ":/mail-attachment.svg" );
-    m_blocked = new QAction( QIcon( ":/dialog-warning.svg" ), tr( "&Blocked" ),
-                             this );
+    m_blocked = new QAction( QIcon( ":/dialog-warning.svg" ), tr( "&Blocked" ), this );
     m_blocked->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_B ) );
-    connect( m_blocked, SIGNAL( activated() ), m_signalMapper, SLOT ( map() ) );
+    connect( m_blocked, SIGNAL( triggered() ), m_signalMapper, SLOT ( map() ) );
+
     m_signalMapper->setMapping( m_blocked, ":/dialog-warning.svg" );
     m_question = new QAction( QIcon( ":/help-browser.svg" ), tr( "&How?" ), this );
     m_question->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_H ) );
-    connect( m_question, SIGNAL( activated() ), m_signalMapper, SLOT ( map() ) );
+    connect( m_question, SIGNAL( triggered() ), m_signalMapper, SLOT ( map() ) );
+
     m_signalMapper->setMapping( m_question, ":/help-browser.svg" );
-    m_postpone = new QAction( QIcon( ":/x-office-calendar.svg" ), tr( "&Postpone" ),
-                              this );
+    m_postpone = new QAction( QIcon( ":/x-office-calendar.svg" ), tr( "&Postpone" ), this );
     m_postpone->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_P ) );
-    connect( m_postpone, SIGNAL( activated() ), m_signalMapper, SLOT ( map() ) );
+    connect( m_postpone, SIGNAL( triggered() ), m_signalMapper, SLOT ( map() ) );
+
     m_signalMapper->setMapping( m_postpone, ":/x-office-calendar.svg" );
-    m_delegate = new QAction( QIcon( ":/system-users.svg" ), tr( "&Comission" ),
-                              this );
+    m_delegate = new QAction( QIcon( ":/system-users.svg" ), tr( "&Comission" ), this );
     m_delegate->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_C ) );
-    connect( m_delegate, SIGNAL( activated() ), m_signalMapper, SLOT ( map() ) );
+    connect( m_delegate, SIGNAL( triggered() ), m_signalMapper, SLOT ( map() ) );
+
     m_signalMapper->setMapping( m_delegate, ":/system-users.svg" );
-    m_maybe = new QAction( QIcon( ":/dialog-information.svg" ), tr( "ma&Ybe" ),
-                           this );
+    m_maybe = new QAction( QIcon( ":/dialog-information.svg" ), tr( "ma&Ybe" ), this );
     m_maybe->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_Y ) );
-    connect( m_maybe, SIGNAL( activated() ), m_signalMapper, SLOT ( map() ) );
+    connect( m_maybe, SIGNAL( triggered() ), m_signalMapper, SLOT ( map() ) );
+
     m_signalMapper->setMapping( m_maybe, ":/dialog-information.svg" );
-    connect( m_signalMapper, SIGNAL( mapped( const QString& ) ),
-             m_graphicsView, SLOT( insertPicture( const QString& ) ) );
+    connect( m_signalMapper, SIGNAL( mapped( const QString& ) ), m_graphicsView, SLOT( insertPicture( const QString& ) ) );
+
     m_ui->statusIcons_toolBar->addAction( m_insertIcon );
     m_ui->statusIcons_toolBar->addAction( m_doIt );
     m_ui->statusIcons_toolBar->addAction( m_trash );

@@ -76,9 +76,7 @@ private:
     // hint mode's nodenumber handling functions
     void showNodeNumbers();
     void showingAllNodeNumbers(const bool &show = true);
-    void showingNodeNumbersBeginWithNumber(const int &prefix,
-                                           const bool &show = true);
-
+    void showingNodeNumbersBeginWithNumber(const int &prefix, const bool &show = true);
 
     QList<Node *> m_nodeList;
     MainWindow *m_parent;

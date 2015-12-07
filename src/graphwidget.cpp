@@ -14,7 +14,8 @@
 
 #include <math.h>
 
-const QColor GraphWidget::m_paper( 255, 255, 153 );
+//const QColor GraphWidget::m_paper( 255, 255, 153 );
+const QColor GraphWidget::m_paper( 255, 255, 255 );
 
 GraphWidget::GraphWidget( MainWindow* parent )
     : QGraphicsView( parent )
@@ -29,13 +30,14 @@ GraphWidget::GraphWidget( MainWindow* parent )
 {
     m_scene = new QGraphicsScene( this );
     m_scene->setItemIndexMethod( QGraphicsScene::NoIndex );
-    m_scene->setSceneRect( -400, -400, 800, 800 );
+    //m_scene->setSceneRect( -400, -400, 800, 800 );
+    m_scene->setSceneRect( -1024, -1024, 2048, 2048 );
     setScene( m_scene );
     setCacheMode( CacheBackground );
     setViewportUpdateMode( BoundingRectViewportUpdate );
     setRenderHint( QPainter::Antialiasing );
     setTransformationAnchor( AnchorUnderMouse );
-    setMinimumSize( 400, 400 );
+    //setMinimumSize( 400, 400 );
 }
 
 void GraphWidget::nodeSelected( Node* node )
@@ -121,7 +123,7 @@ bool GraphWidget::readContentFromXmlFile( const QString& fileName )
     // add nodes
     QDomNodeList nodes = docElem.childNodes().item( 0 ).childNodes();
 
-    for ( unsigned int i = 0; i < nodes.length(); i++ )
+    for (int i = 0; i < nodes.length(); i++ )
     {
         QDomElement e = nodes.item( i ).toElement();
 
@@ -146,7 +148,7 @@ bool GraphWidget::readContentFromXmlFile( const QString& fileName )
     // add edges
     QDomNodeList edges = docElem.childNodes().item( 1 ).childNodes();
 
-    for ( unsigned int i = 0; i < edges.length(); i++ )
+    for ( int i = 0; i < edges.length(); i++ )
     {
         QDomElement e = edges.item( i ).toElement();
 

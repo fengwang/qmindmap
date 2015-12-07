@@ -2,24 +2,17 @@
 
 #include <QApplication>
 
-
-SystemTray::SystemTray( MainWindow* mainWindow, QWidget* parent )
-    : QWidget( parent ),
-      m_parent( mainWindow )
+SystemTray::SystemTray( MainWindow* mainWindow, QWidget* parent ) : QWidget( parent ), m_parent( mainWindow )
 {
     m_systemTrayIcon = new QSystemTrayIcon( 0 );
     m_minimizeAction = new QAction( tr( "Mi&nimize" ), m_systemTrayIcon );
-    connect( m_minimizeAction, SIGNAL( triggered() ), m_parent,
-             SLOT( hide() ) );
+    connect( m_minimizeAction, SIGNAL( triggered() ), m_parent, SLOT( hide() ) );
     m_maximizeAction = new QAction( tr( "Ma&ximize" ), m_systemTrayIcon );
-    connect( m_maximizeAction, SIGNAL( triggered() ), m_parent,
-             SLOT( showMaximized() ) );
+    connect( m_maximizeAction, SIGNAL( triggered() ), m_parent, SLOT( showMaximized() ) );
     m_restoreAction = new QAction( tr( "&Restore" ), m_systemTrayIcon );
-    connect( m_restoreAction, SIGNAL( triggered() ), m_parent,
-             SLOT( showNormal() ) );
+    connect( m_restoreAction, SIGNAL( triggered() ), m_parent, SLOT( showNormal() ) );
     m_quitAction = new QAction( tr( "&Quit" ), m_systemTrayIcon );
-    connect( m_quitAction, SIGNAL( triggered() ), m_parent,
-             SLOT( quit() ) );
+    connect( m_quitAction, SIGNAL( triggered() ), m_parent, SLOT( quit() ) );
     m_trayIconMenu = new QMenu( this );
     m_trayIconMenu->addAction( m_minimizeAction );
     m_trayIconMenu->addAction( m_maximizeAction );
