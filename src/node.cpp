@@ -10,7 +10,7 @@ const double Node::m_pi = 3.14159265358979323846264338327950288419717;
 const double Node::m_oneAndHalfPi = Node::m_pi * 1.5;
 const double Node::m_twoPi = Node::m_pi * 2.0;
 
-const QColor Node::m_gold( 255, 215, 0 );
+const QColor Node::m_gold( 235, 245, 255 );
 
 Node::Node( GraphWidget* parent ) :
     m_graph( parent ),
@@ -368,13 +368,15 @@ void Node::paint( QPainter* painter,
     if ( m_number != -1 )
     {
         painter->setPen( Qt::transparent );
-        painter->setBrush( m_numberIsSpecial ? Qt::green : Qt::yellow );
+        //painter->setBrush( m_numberIsSpecial ? Qt::green : Qt::yellow );
+        painter->setBrush( m_numberIsSpecial ? Qt::green : Qt::gray );
         painter->drawRoundedRect( boundingRect(), 20.0, 15.0 );
     }
     else
     {
         m_hasBorder ?
-        painter->setPen( QPen( QBrush( Qt::black ), 1 ) ) : // border is scaled
+        painter->setPen( QPen( QBrush( Qt::lightGray ), 1 ) ) : // border is scaled
+        //painter->setPen( QPen( QBrush( Qt::black ), 1 ) ) : // border is scaled
         painter->setPen( Qt::transparent );
         painter->setBrush( m_color );
         painter->drawRoundedRect( boundingRect(), 20.0, 15.0 );
