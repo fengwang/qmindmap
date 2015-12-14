@@ -1,1 +1,3 @@
 + add 'qcustomplot' enhancement
++ impl redo/undo
++ impl plugin
