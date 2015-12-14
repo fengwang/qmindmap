@@ -287,57 +287,50 @@ void MainWindow::setUpMainToolbar()
 {
     // why can't I do this with qtcreator? (adding actions to toolbar)
     /// @bug or a feature? no underline here
+
+    m_redo = new QAction( tr( "Redo" ), this );
+    m_undo = new QAction( tr( "Undo" ), this );
+
     m_addNode = new QAction( tr( "Add node (ins)" ), this );
-    connect( m_addNode, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( insertNode() ) );
+    connect( m_addNode, SIGNAL( triggered() ), m_graphicsView, SLOT( insertNode() ) );
     m_delNode = new QAction( tr( "Del node (del)" ), this );
-    connect( m_delNode, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( removeNode() ) );
+    connect( m_delNode, SIGNAL( triggered() ), m_graphicsView, SLOT( removeNode() ) );
     m_editNode = new QAction( tr( "Edit node (F2, dubclick)" ), this );
-    connect( m_editNode, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( editNode() ) );
+    connect( m_editNode, SIGNAL( triggered() ), m_graphicsView, SLOT( editNode() ) );
     m_scaleUpNode = new QAction( tr( "ScaleUp Node (Ctrl +)" ), this );
-    connect( m_scaleUpNode, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( scaleUp() ) );
+    connect( m_scaleUpNode, SIGNAL( triggered() ), m_graphicsView, SLOT( scaleUp() ) );
     m_scaleDownNode = new QAction( tr( "ScaleDown Node (Ctrl -)" ), this );
-    connect( m_scaleDownNode, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( scaleDown() ) );
+    connect( m_scaleDownNode, SIGNAL( triggered() ), m_graphicsView, SLOT( scaleDown() ) );
     m_nodeColor = new QAction( tr( "Node color (c)" ), this );
-    connect( m_nodeColor, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( nodeColor() ) );
+    connect( m_nodeColor, SIGNAL( triggered() ), m_graphicsView, SLOT( nodeColor() ) );
     m_nodeTextColor = new QAction( tr( "Node textcolor (t)" ), this );
-    connect( m_nodeTextColor, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( nodeTextColor() ) );
+    connect( m_nodeTextColor, SIGNAL( triggered() ), m_graphicsView, SLOT( nodeTextColor() ) );
     m_addEdge = new QAction( tr( "Add edge (a)" ), this );
-    connect( m_addEdge, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( addEdge() ) );
+    connect( m_addEdge, SIGNAL( triggered() ), m_graphicsView, SLOT( addEdge() ) );
     m_delEdge = new QAction( tr( "Del edge (d)" ), this );
-    connect( m_delEdge, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( removeEdge() ) );
+    connect( m_delEdge, SIGNAL( triggered() ), m_graphicsView, SLOT( removeEdge() ) );
     m_moveNode = new QAction( tr( "Move node\n(Ctrl cursor, drag)" ), this );
     m_moveNode->setDisabled( true );
     m_subtree = new QAction( tr( "Change on wholesubtree\n(Ctrl shift)" ), this );
     m_subtree->setDisabled( true );
     m_zoomIn = new QAction( tr( "Zoom in (+, scrollup)" ), this );
-    connect( m_zoomIn, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( zoomIn() ) );
+    connect( m_zoomIn, SIGNAL( triggered() ), m_graphicsView, SLOT( zoomIn() ) );
     m_zoomOut = new QAction( tr( "Zoom out (-, scrolldown)" ), this );
-    connect( m_zoomOut, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( zoomOut() ) );
+    connect( m_zoomOut, SIGNAL( triggered() ), m_graphicsView, SLOT( zoomOut() ) );
     m_esc = new QAction( tr( "Leave editing,\nedge eadd/remove (esc)" ), this );
-    connect( m_esc, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( nodeLostFocus() ) );
+    connect( m_esc, SIGNAL( triggered() ), m_graphicsView, SLOT( nodeLostFocus() ) );
     m_hintMode = new QAction( tr( "Hint mode (f)" ), this );
-    connect( m_hintMode, SIGNAL( triggered() ), m_graphicsView,
-             SLOT( hintMode() ) );
+    connect( m_hintMode, SIGNAL( triggered() ), m_graphicsView, SLOT( hintMode() ) );
     m_showMainToolbar = new QAction( tr( "Show main toolbar\n(Ctrl m)" ), this );
     m_showMainToolbar->setShortcut( QKeySequence( Qt::CTRL + Qt::Key_M ) );
-    connect( m_showMainToolbar, SIGNAL( triggered() ), this,
-             SLOT( showMainToolbar() ) );
-    m_showStatusIconToolbar = new QAction( tr( "Insert status icons\n(Ctrl i)" ),
-                                           this );
-    connect( m_showStatusIconToolbar, SIGNAL( triggered() ), this,
-             SLOT( showStatusIconToolbar() ) );
+    connect( m_showMainToolbar, SIGNAL( triggered() ), this, SLOT( showMainToolbar() ) );
+    m_showStatusIconToolbar = new QAction( tr( "Insert status icons\n(Ctrl i)" ), this );
+    connect( m_showStatusIconToolbar, SIGNAL( triggered() ), this, SLOT( showStatusIconToolbar() ) );
+
+    m_ui->mainToolBar->addAction( m_redo );
+    m_ui->mainToolBar->addAction( m_undo );
+    m_ui->mainToolBar->addSeparator();
+
     m_ui->mainToolBar->addAction( m_addNode );
     m_ui->mainToolBar->addAction( m_delNode );
     m_ui->mainToolBar->addAction( m_editNode );

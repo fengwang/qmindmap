@@ -94,6 +94,9 @@ private:
     QAction *m_delegate;
     QAction *m_maybe;
     QSignalMapper *m_signalMapper;
+
+    QAction* m_undo;
+    QAction* m_redo;
 };
 
 #endif // MAINWINDOW_H
