@@ -1,31 +1,11 @@
-QtMindMap
-
-  Software written in QT, aims to provide the features of Freemind(java)
-
+QMindMap with QT5
 
 Compile:
 
   No external depencencies.
 
-  mkdir qtmindmap
-  cd qtmindmap
-  git clone git://gitorious.org/qtmindmap/qtmindmap.git
-  qmake qtmindmap.pro
+  qmake 
   make
-
-Run:
-
-  ./qtmindmap -h
-
-  Usage: qtmindmap [OPTION][FILE]
-  Mindmap program in QT
-
-  Options:
-  -h,  --help             Prints this help.
-  -t,  --tray             Starts application in system tray.
-  -s,  --show-minimized   Hide main window, just show systray icon.
-
-  Report bugs to: denes.matetelki@gmail.com
 
 
 Keys:
@@ -52,3 +32,4 @@ Mouse:
   click   select node
   drag  move node
   double click  sets node editable
+
