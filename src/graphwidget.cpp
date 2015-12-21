@@ -12,9 +12,8 @@
 #include "include/edge.h"
 #include "include/mainwindow.h"
 
-#include <math.h>
+#include <cmath>
 
-//const QColor GraphWidget::m_paper( 255, 255, 153 );
 const QColor GraphWidget::m_paper( 255, 255, 255 );
 
 GraphWidget::GraphWidget( MainWindow* parent )
@@ -30,14 +29,12 @@ GraphWidget::GraphWidget( MainWindow* parent )
 {
     m_scene = new QGraphicsScene( this );
     m_scene->setItemIndexMethod( QGraphicsScene::NoIndex );
-    //m_scene->setSceneRect( -400, -400, 800, 800 );
     m_scene->setSceneRect( -1024, -1024, 2048, 2048 );
     setScene( m_scene );
     setCacheMode( CacheBackground );
     setViewportUpdateMode( BoundingRectViewportUpdate );
     setRenderHint( QPainter::Antialiasing );
     setTransformationAnchor( AnchorUnderMouse );
-    //setMinimumSize( 400, 400 );
 }
 
 void GraphWidget::nodeSelected( Node* node )
@@ -67,8 +64,7 @@ void GraphWidget::nodeMoved( QGraphicsSceneMouseEvent* event )
     // move just the active Node, or it's subtree too?
     QList <Node*> nodeList;
 
-    if ( event->modifiers() & Qt::ControlModifier &&
-         event->modifiers() & Qt::ShiftModifier )
+    if ( event->modifiers() & Qt::ControlModifier && event->modifiers() & Qt::ShiftModifier )
     {
         nodeList = m_activeNode->subtree();
     }

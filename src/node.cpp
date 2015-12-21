@@ -10,7 +10,7 @@ const double Node::m_pi = 3.14159265358979323846264338327950288419717;
 const double Node::m_oneAndHalfPi = Node::m_pi * 1.5;
 const double Node::m_twoPi = Node::m_pi * 2.0;
 
-const QColor Node::m_gold( 235, 245, 255 );
+const QColor Node::m_gold( 215, 235, 255 );
 
 Node::Node( GraphWidget* parent ) :
     m_graph( parent ),
@@ -45,13 +45,10 @@ void Node::addEdge( Edge* edge, bool startsFromThisNode )
 
 void Node::deleteEdge( Node* otherEnd )
 {
-    for ( QList<EdgeElement>::iterator it = m_edgeList.begin();
-          it != m_edgeList.end(); it++ )
+    for ( QList<EdgeElement>::iterator it = m_edgeList.begin(); it != m_edgeList.end(); it++ )
     {
-        if ( ( it->edge->sourceNode() == otherEnd &&
-               it->edge->destNode() == this )
-             || ( it->edge->sourceNode() == this &&
-                  it->edge->destNode() == otherEnd ) )
+        if ( ( it->edge->sourceNode() == otherEnd && it->edge->destNode() == this )
+             || ( it->edge->sourceNode() == this && it->edge->destNode() == otherEnd ) )
         {
             delete it->edge;
             return;
@@ -61,8 +58,7 @@ void Node::deleteEdge( Node* otherEnd )
 
 void Node::removeEdgeFromList( Edge* edge )
 {
-    for ( QList<EdgeElement>::iterator it = m_edgeList.begin();
-          it != m_edgeList.end(); it++ )
+    for ( QList<EdgeElement>::iterator it = m_edgeList.begin(); it != m_edgeList.end(); it++ )
     {
         if ( it->edge == edge )
         {
@@ -78,8 +74,7 @@ QList<Edge*> Node::edgesFrom( const bool& excludeSecondaries ) const
     QList<Edge*> list;
 
     foreach ( EdgeElement element, m_edgeList )
-        if ( element.startsFromThisNode &&
-             ( !element.edge->secondary() || !excludeSecondaries ) )
+        if ( element.startsFromThisNode && ( !element.edge->secondary() || !excludeSecondaries ) )
             list.push_back( element.edge );
 
     return list;
@@ -91,8 +86,7 @@ QList<Edge*> Node::edgesToThis( const bool& excludeSecondaries ) const
     QList<Edge*> list;
 
     foreach ( EdgeElement element, m_edgeList )
-        if ( !element.startsFromThisNode &&
-             ( !element.edge->secondary() || !excludeSecondaries ) )
+        if ( !element.startsFromThisNode && ( !element.edge->secondary() || !excludeSecondaries ) )
             list.push_back( element.edge );
 
     return list;
@@ -102,8 +96,7 @@ QList<Edge*> Node::edgesToThis( const bool& excludeSecondaries ) const
 Edge* Node::edgeTo( const Node* node ) const
 {
     foreach ( EdgeElement element, m_edgeList )
-        if ( ( element.edge->sourceNode() == node  ||
-               element.edge->destNode() == node ) )
+        if ( ( element.edge->sourceNode() == node  || element.edge->destNode() == node ) )
             return element.edge;
 
     return 0;
@@ -118,17 +111,13 @@ QList<Node*> Node::subtree() const
     list.push_back( const_cast<Node*>( this ) );
 
     // inorder: push_back the list of children Nodes of iterator
-    for ( std::list<Node*>::const_iterator it = list.begin();
-          it != list.end();
-          it++ )
+    for ( std::list<Node*>::const_iterator it = list.begin(); it != list.end(); it++ )
     {
         QList<Edge*> edges = ( *it )->edgesFrom();
 
         foreach ( Edge* edge, edges )
             if ( !edge->secondary() )
-                list.push_back( edge->destNode() != this ?
-                                edge->destNode() :
-                                edge->sourceNode() );
+                list.push_back( edge->destNode() != this ? edge->destNode() : edge->sourceNode() );
     }
 
     return QList<Node*>::fromStdList( list );
@@ -138,8 +127,7 @@ QList<Node*> Node::subtree() const
 bool Node::isConnected( const Node* node ) const
 {
     foreach ( EdgeElement element, m_edgeList )
-        if ( element.edge->sourceNode() == node ||
-             element.edge->destNode() == node )
+        if ( element.edge->sourceNode() == node || element.edge->destNode() == node )
             return true;
 
     return false;
@@ -192,13 +180,11 @@ QColor Node::textColor() const
 void Node::setScale( const qreal& factor, const QRectF& sceneRect )
 {
     // limit scale to a reasonable size
-    if ( factor * scale() < 0.4 ||
-         factor * scale() > 4 )
+    if ( factor * scale() < 0.4 || factor * scale() > 4 )
         return;
 
     // cannot scale out the Node from the scene
-    if ( !sceneRect.contains( pos() +
-                              boundingRect().bottomRight() * scale() * factor ) )
+    if ( !sceneRect.contains( pos() + boundingRect().bottomRight() * scale() * factor ) )
         return;
 
     prepareGeometryChange();
@@ -214,9 +200,7 @@ void Node::setScale( const qreal& factor, const QRectF& sceneRect )
     }
 }
 
-void Node::showNumber( const int& number,
-                       const bool& show,
-                       const bool& numberIsSpecial )
+void Node::showNumber( const int& number, const bool& show, const bool& numberIsSpecial )
 {
     m_number = show ? number : -1;
     m_numberIsSpecial = numberIsSpecial;
@@ -227,8 +211,7 @@ void Node::insertPicture( const QString& picture )
 {
     QTextCursor c = textCursor();
     // strange, picture looks bad when node is scaled up
-    c.insertHtml( QString( "<img src=" ).append( picture ).
-                  append( " width=15 height=15></img>" ) );
+    c.insertHtml( QString( "<img src=" ).append( picture ). append( " width=15 height=15></img>" ) );
     m_graph->contentChanged();
     foreach ( EdgeElement element, m_edgeList ) element.edge->adjust();
 }
@@ -270,9 +253,7 @@ double Node::calculateBiggestAngle() const
 
     // if there is only one edge, return with it's extension
     if ( m_edgeList.size() == 1 )
-        return m_edgeList.first().startsFromThisNode ?
-               Node::m_pi - m_edgeList.first().edge->angle() :
-               Node::m_twoPi - m_edgeList.first().edge->angle();
+        return m_edgeList.first().startsFromThisNode ? Node::m_pi - m_edgeList.first().edge->angle() : Node::m_twoPi - m_edgeList.first().edge->angle();
 
     // put angles of every edges from this node to a list
     QList<double> tmp;
@@ -280,9 +261,7 @@ double Node::calculateBiggestAngle() const
     for ( QList<EdgeElement>::const_iterator it = m_edgeList.begin();
           it != m_edgeList.end(); it++ )
     {
-        tmp.push_back( it->startsFromThisNode ?
-                       it->edge->angle() :
-                       doubleModulo( Node::m_pi + it->edge->angle(), Node::m_twoPi ) );
+        tmp.push_back( it->startsFromThisNode ? it->edge->angle() : doubleModulo( Node::m_pi + it->edge->angle(), Node::m_twoPi ) );
     }
 
     qSort( tmp.begin(), tmp.end() );
@@ -314,10 +293,7 @@ void Node::keyPressEvent( QKeyEvent* event )
         case Qt::Key_Left:
             {
                 QTextCursor c = textCursor(); // textcursor() return just a copy
-                c.movePosition(
-                    event->modifiers() == Qt::ControlModifier ?
-                    QTextCursor::PreviousWord :
-                    QTextCursor::PreviousCharacter );
+                c.movePosition( event->modifiers() == Qt::ControlModifier ? QTextCursor::PreviousWord : QTextCursor::PreviousCharacter );
                 setTextCursor( c );
                 break;
             }
@@ -325,10 +301,7 @@ void Node::keyPressEvent( QKeyEvent* event )
         case Qt::Key_Right:
             {
                 QTextCursor c = textCursor();
-                c.movePosition(
-                    event->modifiers() == Qt::ControlModifier ?
-                    QTextCursor::NextWord :
-                    QTextCursor::NextCharacter );
+                c.movePosition( event->modifiers() == Qt::ControlModifier ? QTextCursor::NextWord : QTextCursor::NextCharacter );
                 setTextCursor( c );
                 break;
             }
