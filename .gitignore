@@ -6,3 +6,4 @@ qrc_*
 qtmindmap
 *.pro.user
 *.app
+*.DS_Store
